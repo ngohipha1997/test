@@ -33,25 +33,12 @@ export default class Main extends Component {
   toggleForm = () => {
     this.setState({shouldShowForm: !this.state.shouldShowForm});
   };
-  addWord = () => {
-    const {txtEn, txtVn} = this.state;
-    if (txtEn.length <= 0 || txtVn.length <= 0) {
-      alert('Bạn chưa nhập đủ thông tin');
-      return;
-    }
-    const newWord = {
-      id: Math.random(),
-      en: txtEn,
-      vn: txtVn,
-      isMemorized: false,
-    };
+  onAddWord = (newWord) => {
     const newWords = this.state.words.map((word) => {
       return {...word};
     });
     newWords.push(newWord);
-    this.txtEnRef.clear();
-    this.txtVnRef.clear();
-    this.setState({words: newWords, txtEn: '', txtVn: ''});
+    this.setState({words: newWords});
   };
  
   render() {
