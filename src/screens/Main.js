@@ -30,9 +30,7 @@ export default class Main extends Component {
     };
   }
   
-  toggleForm = () => {
-    this.setState({shouldShowForm: !this.state.shouldShowForm});
-  };
+  
   onAddWord = (newWord) => {
     const newWords = this.state.words.map((word) => {
       return {...word};
@@ -40,13 +38,39 @@ export default class Main extends Component {
     newWords.push(newWord);
     this.setState({words: newWords});
   };
- 
+  onSetFilterMode = (filterMode) => {
+    this.setState({filterMode: filterMode});
+  };
+  onToggleWord = (word) => {
+    const newWords = this.state.words.map((item) => {
+      if (item.id === word.id) {
+        return {...item, isMemorized: !item.isMemorized};
+      }
+      return item;
+    });
+    this.setState({words: newWords});
+  };
+  onRemoveWord = (word) => {
+    const newWords = this.state.words.filter((item) => {
+      console.log(word.id, item.id);
+      if (item.id === word.id) {
+        return false;
+      }
+      return true;
+    });
+    this.setState({words: newWords});
+  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Form/>
-       <Filter filterMode ={this.state.filterMode}/>
-       <Word words={this.state.words} filterMode={this.state.filterMode} />
+        <Form onAddWord={this.onAddWord} />
+        <Filter onSetFilterMode={this.onSetFilterMode} />
+        <Word
+          onToggleWord={this.onToggleWord}
+          onRemoveWord={this.onRemoveWord}
+          words={this.state.words}
+          filterMode={this.state.filterMode}
+        />
       </SafeAreaView>
     );
   }
