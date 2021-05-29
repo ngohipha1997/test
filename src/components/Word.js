@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
+import { connect } from 'react-redux';
 import WordItem from './WordItem';
 
-export default class Word extends Component {
+class Word extends Component {
+  onToggleWord = (word) => {
+    this.props.dispatch({type: 'TOGGLE_WORD', word: word});
+  };
+  onRemoveWord = (word) => {
+    this.props.dispatch({type: 'REMOVE_WORD', word: word});
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -14,8 +21,8 @@ export default class Word extends Component {
               <WordItem
                 word={item}
                 filterMode={this.props.filterMode}
-                onToggleWord={this.props.onToggleWord}
-                onRemoveWord={this.props.onRemoveWord}
+                onToggleWord={this.onToggleWord}
+                onRemoveWord={this.onRemoveWord}
               />
             );
           }}
@@ -29,3 +36,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {words: state.words, filterMode: state.filterMode};
+};
+
+export default connect(mapStateToProps)(Word);

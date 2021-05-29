@@ -8,69 +8,19 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+
 import Filter from '../components/Filter';
 import Form from '../components/From';
 import Word from '../components/Word';
 
 
 export default class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      words: [
-        {id: 1, en: 'One', vn: 'Một', isMemorized: false},
-        {id: 2, en: 'Two', vn: 'Hai', isMemorized: false},
-        {id: 3, en: 'Three', vn: 'Ba', isMemorized: true},
-        {id: 4, en: 'Four', vn: 'Bốn', isMemorized: true},
-        {id: 5, en: 'Five', vn: 'Năm', isMemorized: false},
-      ],
-      
-      filterMode: null,
-    };
-  }
-  
-  
-  onAddWord = (newWord) => {
-    const newWords = this.state.words.map((word) => {
-      return {...word};
-    });
-    newWords.push(newWord);
-    this.setState({words: newWords});
-  };
-  onSetFilterMode = (filterMode) => {
-    this.setState({filterMode: filterMode});
-  };
-  onToggleWord = (word) => {
-    const newWords = this.state.words.map((item) => {
-      if (item.id === word.id) {
-        return {...item, isMemorized: !item.isMemorized};
-      }
-      return item;
-    });
-    this.setState({words: newWords});
-  };
-  onRemoveWord = (word) => {
-    const newWords = this.state.words.filter((item) => {
-      console.log(word.id, item.id);
-      if (item.id === word.id) {
-        return false;
-      }
-      return true;
-    });
-    this.setState({words: newWords});
-  };
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Form onAddWord={this.onAddWord} />
-        <Filter onSetFilterMode={this.onSetFilterMode} />
-        <Word
-          onToggleWord={this.onToggleWord}
-          onRemoveWord={this.onRemoveWord}
-          words={this.state.words}
-          filterMode={this.state.filterMode}
-        />
+        <Form />
+        <Filter />
+        <Word />
       </SafeAreaView>
     );
   }
