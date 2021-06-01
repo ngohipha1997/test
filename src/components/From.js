@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
+import * as actionCreators from '../redux/actions/actionCreators';
 
 class Form extends Component {
   constructor(props) {
@@ -32,7 +33,8 @@ class Form extends Component {
       vn: txtVn,
       isMemorized: false,
     };
-    this.props.dispatch({type : 'ADD_WORD' , newWord : newWord});
+    // this.props.dispatch({type: 'ADD_WORD', newWord: newWord});
+    this.props.addWord(newWord);
     this.setState({txtEn: '', txtVn: ''});
     this.txtEnRef.clear();
     this.txtVnRef.clear();
@@ -134,4 +136,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-export default connect()(Form);
+
+// Cách viêt tường minh
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addWord: (newWord) => dispatch(addWord(newWord)),
+//   };
+// };
+
+export default connect(null, actionCreators)(Form);
