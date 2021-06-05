@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
-import { connect } from 'react-redux';
 import WordItem from './WordItem';
-
-import {toggleWord, removeWord} from '../redux/actions/actionCreators';
-
+import {connect} from 'react-redux';
 class Word extends Component {
   onToggleWord = (word) => {
-    this.props.toggleWord(word);
+    // this.props.toggleWord(word);
   };
   onRemoveWord = (word) => {
-    this.props.removeWord(word);
+    // this.props.removeWord(word);
   };
   render() {
     return (
@@ -43,11 +40,4 @@ const mapStateToProps = (state) => {
   return {words: state.words, filterMode: state.filterMode};
 };
 
-const maptDispatchToProps = (dispatch) => {
-  return {
-    toggleWord: (word) => dispatch(toggleWord(word)),
-    removeWord: (word) => dispatch(removeWord(word)),
-  };
-};
-
-export default connect(mapStateToProps, maptDispatchToProps)(Word);
+export default connect(mapStateToProps)(Word);
